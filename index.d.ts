@@ -1,14 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import * as Joi from 'joi'
+import Joi from 'joi'
 
 type ArrayType<T> = T extends (infer U)[] ? U : never
 
 declare module 'joi' {
-
-	/*
-		eslint-disable no-use-before-define
-	*/
 	interface Root {
 		randomTest: boolean
 
@@ -24,7 +18,6 @@ declare module 'joi' {
 
 		date<T extends Date>(): BoxDateSchema<Box<T, false>>
 
-		// eslint-disable-next-line @typescript-eslint/ban-types
 		func<T extends Function>(): BoxFunctionSchema<Box<T, false>>
 
 		array(): BoxArraySchema<Box<never, false>>
@@ -58,20 +51,15 @@ declare module 'joi' {
 		R: R
 	}
 
-
-	/*
-	 eslint-disable @typescript-eslint/no-unused-vars
-	*/
-	type BoxType<B, nT> = B extends Box<infer oT, infer oR> ? Box<nT, oR> : B
+	type BoxType<B, nT> = B extends Box<infer _oT, infer oR> ? Box<nT, oR> : B
 	type BoxUnion<B, nT> = B extends Box<infer oT, infer oR> ? Box<oT | nT, oR> : B
 	type BoxIntersection<B, nT> = B extends Box<infer oT, infer oR> ? Box<oT & nT, oR> : B
-	type BoxReq<B, nR extends boolean> = B extends Box<infer oT, infer oR> ? Box<oT, nR> : B
+	type BoxReq<B, nR extends boolean> = B extends Box<infer oT, infer _oR> ? Box<oT, nR> : B
 	type BoxSchema = Box<any, boolean>
 
-	// eslint-disable-next-line @typescript-eslint/ban-types
 	type primitiveType = string | number | boolean | Function | Date | undefined | null | void
 	type mappedSchema = Joi.SchemaLike | BoxedPrimitive
-	type mappedSchemaMap = { [K: string]: mappedSchema }
+	type mappedSchemaMap = { [_K: string]: mappedSchema }
 	type extendsGuard<T, S> = S extends T ? S : T
 
 	/**
@@ -88,7 +76,7 @@ declare module 'joi' {
 		| BoxObjectSchema<T>
 		| BoxAlternativesSchema<T>
 
-	interface BoxAnySchema<N extends Box<any, boolean>> extends Joi.AnySchema {
+	interface BoxAnySchema<_N extends Box<any, boolean>> extends Joi.AnySchema {
 		__schemaTypeLiteral: 'BoxAnySchema'
 
 		default<T>(
@@ -120,7 +108,7 @@ declare module 'joi' {
 		optional(): this
 	}
 
-	interface BoxStringSchema<N extends BoxSchema> extends Joi.StringSchema {
+	interface BoxStringSchema<_N extends BoxSchema> extends Joi.StringSchema {
 		__schemaTypeLiteral: 'BoxStringSchema'
 
 		default<T extends string>(
@@ -156,7 +144,7 @@ declare module 'joi' {
 		optional(): this
 	}
 
-	interface BoxNumberSchema<N extends BoxSchema> extends Joi.NumberSchema {
+	interface BoxNumberSchema<_N extends BoxSchema> extends Joi.NumberSchema {
 		__schemaTypeLiteral: 'BoxNumberSchema'
 
 		default<T extends number>(
@@ -192,7 +180,7 @@ declare module 'joi' {
 		optional(): this
 	}
 
-	interface BoxBooleanSchema<N extends BoxSchema> extends Joi.BooleanSchema {
+	interface BoxBooleanSchema<_N extends BoxSchema> extends Joi.BooleanSchema {
 		__schemaTypeLiteral: 'BoxBooleanSchema'
 
 		default<T extends boolean>(
@@ -228,7 +216,7 @@ declare module 'joi' {
 		optional(): this
 	}
 
-	interface BoxDateSchema<N extends BoxSchema> extends Joi.DateSchema {
+	interface BoxDateSchema<_N extends BoxSchema> extends Joi.DateSchema {
 		__schemaTypeLiteral: 'BoxDateSchema'
 
 		default<T extends Date>(
@@ -264,7 +252,7 @@ declare module 'joi' {
 		optional(): this
 	}
 
-	interface BoxFunctionSchema<N extends BoxSchema> extends Joi.FunctionSchema {
+	interface BoxFunctionSchema<_N extends BoxSchema> extends Joi.FunctionSchema {
 		__schemaTypeLiteral: 'BoxFunctionSchema'
 
 		allow<T>(
@@ -286,7 +274,7 @@ declare module 'joi' {
 		optional(): this
 	}
 
-	interface BoxArraySchema<N extends BoxSchema> extends Joi.ArraySchema {
+	interface BoxArraySchema<_N extends BoxSchema> extends Joi.ArraySchema {
 		__schemaTypeLiteral: 'BoxArraySchema'
 
 		default<T extends any[]>(
@@ -321,7 +309,7 @@ declare module 'joi' {
 		optional(): this
 	}
 
-	interface BoxObjectSchema<N extends BoxSchema> extends Joi.ObjectSchema {
+	interface BoxObjectSchema<_N extends BoxSchema> extends Joi.ObjectSchema {
 		__schemaTypeLiteral: 'BoxObjectSchema'
 
 		default<T extends mappedSchemaMap>(
@@ -377,7 +365,7 @@ declare module 'joi' {
 		optional(): this
 	}
 
-	interface BoxAlternativesSchema<N extends BoxSchema> extends Joi.AlternativesSchema {
+	interface BoxAlternativesSchema<_N extends BoxSchema> extends Joi.AlternativesSchema {
 		__schemaTypeLiteral: 'BoxAlternativesSchema'
 
 		allow<T>(
@@ -392,7 +380,7 @@ declare module 'joi' {
 		try<T extends mappedSchema[]>(
 			...values: T
 		): this extends BoxAlternativesSchema<infer O>
-			? O extends Box<infer oT, infer oR>
+			? O extends Box<infer oT, infer _oR>
 				? BoxAlternativesSchema<BoxType<O, oT | extractType<T>>>
 				: BoxAlternativesSchema<Box<extractType<T>, false>>
 			: BoxAlternativesSchema<Box<extractType<T>, false>>
@@ -400,7 +388,7 @@ declare module 'joi' {
 		try<T extends mappedSchema[]>(
 			values: T
 		): this extends BoxAlternativesSchema<infer O>
-			? O extends Box<infer oT, infer oR>
+			? O extends Box<infer oT, infer _oR>
 				? BoxAlternativesSchema<BoxType<O, oT | extractType<T>>>
 				: BoxAlternativesSchema<Box<extractType<T>, false>>
 			: BoxAlternativesSchema<Box<extractType<T>, false>>
@@ -430,7 +418,7 @@ declare module 'joi' {
 			ref: R,
 			defs: T
 		): this extends BoxAlternativesSchema<infer O>
-			? O extends Box<infer oT, infer oR>
+			? O extends Box<infer oT, infer _oR>
 				? BoxAlternativesSchema<
 					BoxType<O, oT | extractType<T['then']> | extractType<T['otherwise']>>
 					>
@@ -441,7 +429,7 @@ declare module 'joi' {
 		when(ref: Joi.Schema, options: Joi.WhenSchemaOptions): this
 	}
 
-	type maybeExtractBox<T> = T extends Box<infer O, infer R> ? O : T
+	type maybeExtractBox<T> = T extends Box<infer O, infer _R> ? O : T
 
 	type Required<T, K = keyof T> = {
 		[j in K extends keyof T
