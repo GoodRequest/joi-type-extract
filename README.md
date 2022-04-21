@@ -12,10 +12,11 @@ Clone of https://github.com/TCMiranda/joi-extract-type<br>
    ```Typescript
    import '@goodrequest/joi-type-extract'
    ```
-3. Include created file in tsconfig.json in typeRoots
+3. Add this compiler option and include created file in tsconfig.json in typeRoots
 	```Json
 	{
 		"compilerOptions": {
+            "strictNullChecks": true,
 			"typeRoots": [
 				"./src/types"
 			]
