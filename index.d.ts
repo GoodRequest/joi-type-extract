@@ -82,7 +82,7 @@ declare module 'joi' {
 		default<T>(
 			value: T,
 			description?: string
-		): this extends BoxAnySchema<infer B> ? BoxAnySchema<BoxUnion<B, T>> : never
+		): this extends BoxAnySchema<infer B> ? BoxAnySchema<BoxReq<BoxUnion<B, T>, true>> : never
 		default(value: any, description?: string): this
 		default(): this
 
@@ -114,7 +114,7 @@ declare module 'joi' {
 		default<T extends string>(
 			value: T,
 			description?: string
-		): this extends BoxStringSchema<infer B> ? BoxStringSchema<BoxUnion<B, T>> : never
+		): this extends BoxStringSchema<infer B> ? BoxStringSchema<BoxReq<BoxUnion<B, T>, true>> : never
 		default(value: any, description?: string): this
 		default(): this
 
@@ -150,7 +150,7 @@ declare module 'joi' {
 		default<T extends number>(
 			value: T,
 			description?: string
-		): this extends BoxNumberSchema<infer B> ? BoxNumberSchema<BoxUnion<B, T>> : never
+		): this extends BoxNumberSchema<infer B> ? BoxNumberSchema<BoxReq<BoxUnion<B, T>, true>> : never
 		default(value: any, description?: string): this
 		default(): this
 
@@ -186,7 +186,7 @@ declare module 'joi' {
 		default<T extends boolean>(
 			value: T,
 			description?: string
-		): this extends BoxBooleanSchema<infer B> ? BoxBooleanSchema<BoxUnion<B, T>> : never
+		): this extends BoxBooleanSchema<infer B> ? BoxBooleanSchema<BoxReq<BoxUnion<B, T>, true>> : never
 		default(value: any, description?: string): this
 		default(): this
 
@@ -222,7 +222,7 @@ declare module 'joi' {
 		default<T extends Date>(
 			value: T,
 			description?: string
-		): this extends BoxDateSchema<infer B> ? BoxDateSchema<BoxUnion<B, T>> : never
+		): this extends BoxDateSchema<infer B> ? BoxDateSchema<BoxReq<BoxUnion<B, T>, true>> : never
 		default(value: any, description?: string): this
 		default(): this
 
@@ -280,7 +280,7 @@ declare module 'joi' {
 		default<T extends any[]>(
 			value: T,
 			description?: string
-		): this extends BoxArraySchema<infer B> ? BoxArraySchema<BoxUnion<B, ArrayType<T>>> : never
+		): this extends BoxArraySchema<infer B> ? BoxArraySchema<BoxReq<BoxUnion<B, ArrayType<T>>, true>> : never
 
 		default(value: any, description?: string): this
 		default(): this
@@ -315,7 +315,7 @@ declare module 'joi' {
 		default<T extends mappedSchemaMap>(
 			value: T,
 			description?: string
-		): this extends BoxObjectSchema<infer B> ? BoxObjectSchema<BoxUnion<B, extractType<T>>> : never
+		): this extends BoxObjectSchema<infer B> ? BoxObjectSchema<BoxReq<BoxUnion<B, extractType<T>>, true>> : never
 		default(value: any, description?: string): this
 		default(): this
 
