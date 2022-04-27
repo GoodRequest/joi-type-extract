@@ -296,8 +296,7 @@ declare module 'joi' {
 
 		items<T extends mappedSchema>(
 			type: T
-		): this extends BoxArraySchema<infer B> ? BoxArraySchema<BoxUnion<B, extractType<T>>> : never
-
+		): this extends BoxArraySchema<infer B> ? BoxArraySchema<BoxUnion<B, extractType<T>[]>> : never
 		items(...types: Joi.SchemaLike[]): this
 		items(types: Joi.SchemaLike[]): this
 
@@ -472,7 +471,7 @@ declare module 'joi' {
 							: T extends BoxFunctionSchema<infer O>
 								? maybeExtractBox<O>
 								: T extends BoxArraySchema<infer O>
-									? maybeExtractBox<O>[]
+									? maybeExtractBox<O>
 									: T extends BoxObjectSchema<infer O>
 										? maybeExtractBox<O>
 										: T extends BoxAlternativesSchema<infer O>
