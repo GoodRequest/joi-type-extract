@@ -248,6 +248,7 @@ declare module 'joi' {
 		required(): this
 		exist(): this extends BoxDateSchema<infer B> ? BoxDateSchema<BoxReq<B, true>> : never
 		exist(): this
+		timestamp(type: 'javascript' | 'unix'): this extends BoxDateSchema<infer B> ? BoxDateSchema<BoxType<B, number>> : never
 		optional(): this extends BoxDateSchema<infer B> ? BoxDateSchema<BoxReq<B, false>> : never
 		optional(): this
 	}
