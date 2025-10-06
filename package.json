@@ -1,6 +1,6 @@
 {
     "name": "@goodrequest/joi-type-extract",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/GoodRequest/joi-type-extract.git"
