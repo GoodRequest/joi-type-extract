@@ -9,7 +9,7 @@
     "license": "MIT",
     "scripts": {},
     "dependencies": {
-        "joi": "^17.6.0"
+        "joi": "^18.0.1"
     },
     "description": "Solution that extractes types from joi schemas.",
     "homepage": "https://github.com/GoodRequest/joi-type-extract#readme",
